@@ -14,11 +14,17 @@ class NumericKeyboard extends StatefulWidget {
   /// Action to trigger when right button is pressed
   final Function()? rightButtonFn;
 
+  /// Action to trigger when right button is long pressed
+  final Function()? rightButtonLongFn;
+
   /// Display a custom left icon
   final Icon? leftIcon;
 
   /// Action to trigger when left button is pressed
   final Function()? leftButtonFn;
+
+  /// Action to trigger when left button is long pressed
+  final Function()? leftButtonLongFn;
 
   /// Callback when an item is pressed
   final KeyboardTapCallback onKeyboardTap;
@@ -31,8 +37,10 @@ class NumericKeyboard extends StatefulWidget {
       required this.onKeyboardTap,
       this.textColor = Colors.black,
       this.rightButtonFn,
+      this.rightButtonLongFn,
       this.rightIcon,
       this.leftButtonFn,
+      this.leftButtonLongFn,
       this.leftIcon,
       this.mainAxisAlignment = MainAxisAlignment.spaceEvenly})
       : super(key: key);
@@ -79,22 +87,28 @@ class _NumericKeyboardState extends State<NumericKeyboard> {
             alignment: widget.mainAxisAlignment,
             children: <Widget>[
               InkWell(
-                  borderRadius: BorderRadius.circular(45),
-                  onTap: widget.leftButtonFn,
-                  child: Container(
-                      alignment: Alignment.center,
-                      width: 50,
-                      height: 50,
-                      child: widget.leftIcon)),
+                borderRadius: BorderRadius.circular(45),
+                onTap: widget.leftButtonFn,
+                onLongPress: widget.leftButtonLongFn,
+                child: Container(
+                  alignment: Alignment.center,
+                  width: 50,
+                  height: 50,
+                  child: widget.leftIcon,
+                ),
+              ),
               _calcButton('0'),
               InkWell(
-                  borderRadius: BorderRadius.circular(45),
-                  onTap: widget.rightButtonFn,
-                  child: Container(
-                      alignment: Alignment.center,
-                      width: 50,
-                      height: 50,
-                      child: widget.rightIcon))
+                borderRadius: BorderRadius.circular(45),
+                onTap: widget.rightButtonFn,
+                onLongPress: widget.rightButtonLongFn,
+                child: Container(
+                  alignment: Alignment.center,
+                  width: 50,
+                  height: 50,
+                  child: widget.rightIcon,
+                ),
+              )
             ],
           ),
         ],
@@ -104,21 +118,23 @@ class _NumericKeyboardState extends State<NumericKeyboard> {
 
   Widget _calcButton(String value) {
     return InkWell(
-        borderRadius: BorderRadius.circular(45),
-        onTap: () {
-          widget.onKeyboardTap(value);
-        },
-        child: Container(
-          alignment: Alignment.center,
-          width: 50,
-          height: 50,
-          child: Text(
-            value,
-            style: TextStyle(
-                fontSize: 26,
-                fontWeight: FontWeight.bold,
-                color: widget.textColor),
+      borderRadius: BorderRadius.circular(45),
+      onTap: () {
+        widget.onKeyboardTap(value);
+      },
+      child: Container(
+        alignment: Alignment.center,
+        width: 50,
+        height: 50,
+        child: Text(
+          value,
+          style: TextStyle(
+            fontSize: 26,
+            fontWeight: FontWeight.bold,
+            color: widget.textColor,
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
