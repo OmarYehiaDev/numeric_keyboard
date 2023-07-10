@@ -32,18 +32,34 @@ class NumericKeyboard extends StatefulWidget {
   /// Main axis alignment [default = MainAxisAlignment.spaceEvenly]
   final MainAxisAlignment mainAxisAlignment;
 
-  NumericKeyboard(
-      {Key? key,
-      required this.onKeyboardTap,
-      this.textColor = Colors.black,
-      this.rightButtonFn,
-      this.rightButtonLongFn,
-      this.rightIcon,
-      this.leftButtonFn,
-      this.leftButtonLongFn,
-      this.leftIcon,
-      this.mainAxisAlignment = MainAxisAlignment.spaceEvenly})
-      : super(key: key);
+  /// Top padding  [default = 20]
+  final double topPadding;
+
+  /// Bottom padding [default = 0]
+  final double bottomPadding;
+
+  /// Start padding [default = 32]
+  final double startPadding;
+
+  /// End padding [default = 32]
+  final double endPadding;
+
+  NumericKeyboard({
+    Key? key,
+    required this.onKeyboardTap,
+    this.textColor = Colors.black,
+    this.rightButtonFn,
+    this.rightButtonLongFn,
+    this.rightIcon,
+    this.leftButtonFn,
+    this.leftButtonLongFn,
+    this.leftIcon,
+    this.mainAxisAlignment = MainAxisAlignment.spaceEvenly,
+    this.topPadding = 20,
+    this.bottomPadding = 0,
+    this.startPadding = 32,
+    this.endPadding = 32,
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -55,7 +71,12 @@ class _NumericKeyboardState extends State<NumericKeyboard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(left: 32, right: 32, top: 20),
+      padding: EdgeInsetsDirectional.only(
+        start: widget.startPadding,
+        end: widget.endPadding,
+        top: widget.topPadding,
+        bottom: widget.bottomPadding,
+      ),
       alignment: Alignment.center,
       child: Column(
         children: <Widget>[
